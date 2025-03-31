@@ -1,0 +1,32 @@
+/* Ensure select elements inside buttons are properly styled */
+button select {
+    cursor: pointer;
+  }
+  
+  button select:focus {
+    outline: none;
+  }
+  
+  /* Hide default select arrow in various browsers */
+  button select::-ms-expand {
+    display: none;
+  }
+  
+  button select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
+  }
+  
+  /* Ensure consistent height for all form controls */
+  .form-control-height {
+    height: 44px;
+  }
+  
+  @media (min-width: 768px) {
+    .form-control-height {
+      height: 48px;
+    }
+  }
+  
