@@ -9,11 +9,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { MenuItem } from "./menu-item";
-import {
-  getBranchMenu,
-  getMenuCategories,
-  getAllBranches,
-} from "@/lib/menu-data";
+import { getBranchMenu } from "@/lib/dish-data";
+import { getMenuCategories } from "@/lib/menu-data";
+import { getAllBranches } from "@/lib/branch-data";
 import { useMenuStore } from "@/lib/store";
 
 export function MenuPage() {

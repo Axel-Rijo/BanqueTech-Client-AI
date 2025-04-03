@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BranchMap } from "@/components/menu/branch/branch-map";
-import { getAllBranches, type Branch } from "@/lib/menu-data";
+import { getAllBranches, type Branch } from "@/lib/branch-data";
 import { useMenuStore } from "@/lib/store";
 
 export default function SelectBranchPage() {

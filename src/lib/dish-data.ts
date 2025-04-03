@@ -1,4 +1,5 @@
 import type { MenuItem } from "./menu-data"
+import { Branch } from "./menu-data"
 
 export interface DishOption {
     id: string
@@ -16,11 +17,13 @@ export interface DishDetails extends MenuItem {
     sideOptions?: DishOption[]
     addOns?: DishAddOn[]
     ingredients?: string[]
+    category: string
     allergens?: {
         contains: string[]
         mayContain?: string[]
         freeFrom?: string[]
     }
+    branches: string[]
     nutritionFacts?: {
         calories: number
         protein: number
@@ -36,13 +39,18 @@ export function getDishDetails(id: string): DishDetails | null {
     return dish || null
 }
 
-const dishDetails: DishDetails[] = [
+export function getBranchMenu(branch: Branch): DishDetails[] {
+    return dishDetails.filter((item) => item.branches.includes(branch))
+}
+
+
+export const dishDetails: DishDetails[] = [
     {
         id: "1",
         name: "Classic Bruschetta",
         description: "Toasted bread rubbed with garlic and topped with diced tomatoes, fresh basil, and olive oil",
         price: 8.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Classic-Bruschetta.jpg",
         category: "starters",
         branches: ["downtown", "uptown", "riverside", "beachside"],
         dietary: ["Vegetarian"],
@@ -77,7 +85,7 @@ const dishDetails: DishDetails[] = [
         name: "Spicy Buffalo Wings",
         description: "Crispy chicken wings tossed in our signature spicy buffalo sauce, served with blue cheese dip",
         price: 12.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Spicy-Buffalo-Wings.jpg",
         category: "starters",
         branches: ["downtown", "uptown"],
         isSpicy: true,
@@ -119,7 +127,7 @@ const dishDetails: DishDetails[] = [
         name: "Truffle Fries",
         description: "Hand-cut fries tossed with truffle oil, parmesan cheese, and fresh herbs",
         price: 7.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Truffle-Fries.jpg",
         category: "sides",
         branches: ["downtown", "riverside"],
         dietary: ["Vegetarian"],
@@ -150,7 +158,7 @@ const dishDetails: DishDetails[] = [
         name: "Grilled Salmon with Lemon Butter",
         description: "Fresh Atlantic salmon fillet grilled to perfection and served with our signature lemon butter sauce.",
         price: 24.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Grilled-Salmon-with-Lemon-Butter.jpg",
         category: "mains",
         branches: ["riverside", "beachside"],
         dietary: ["Gluten-Free", "High Protein", "Pescatarian"],
@@ -196,7 +204,7 @@ const dishDetails: DishDetails[] = [
         name: "Filet Mignon",
         description: "8oz prime beef tenderloin, cooked to your liking, served with garlic mashed potatoes and asparagus",
         price: 34.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Filet-Mignon.jpg",
         category: "mains",
         branches: ["downtown", "uptown"],
         dietary: ["High Protein"],
@@ -245,7 +253,7 @@ const dishDetails: DishDetails[] = [
         name: "Vegetable Stir Fry",
         description: "Seasonal vegetables stir-fried with aromatic spices and served over steamed rice",
         price: 16.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Vegetable-Stir-Fry.jpg",
         category: "mains",
         branches: ["downtown", "uptown", "riverside"],
         dietary: ["Vegetarian", "Vegan"],
@@ -290,7 +298,7 @@ const dishDetails: DishDetails[] = [
         name: "Tiramisu",
         description: "Traditional Italian dessert with layers of coffee-soaked ladyfingers and mascarpone cream",
         price: 8.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Tiramisu.jpg",
         category: "desserts",
         branches: ["downtown", "uptown", "riverside", "beachside"],
         dietary: ["Vegetarian"],
@@ -325,7 +333,7 @@ const dishDetails: DishDetails[] = [
         name: "Chocolate Lava Cake",
         description: "Warm chocolate cake with a molten center, served with vanilla ice cream",
         price: 9.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Chocolate-Lava-Cake.jpg",
         category: "desserts",
         branches: ["downtown", "riverside"],
         dietary: ["Vegetarian"],
@@ -353,7 +361,7 @@ const dishDetails: DishDetails[] = [
         name: "Craft Beer Flight",
         description: "Sample four of our rotating local craft beers",
         price: 12.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Craft-Beer-Flight.jpg",
         category: "drinks",
         branches: ["downtown", "uptown"],
         sideOptions: [
@@ -383,7 +391,7 @@ const dishDetails: DishDetails[] = [
         name: "Signature Mojito",
         description: "Fresh mint, lime, sugar, rum, and soda water, garnished with lime wedge",
         price: 10.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Signature-Mojito.jpg",
         category: "drinks",
         branches: ["riverside", "beachside"],
         addOns: [
@@ -412,7 +420,7 @@ const dishDetails: DishDetails[] = [
         name: "Seafood Paella",
         description: "Traditional Spanish rice dish with shrimp, mussels, clams, and chorizo",
         price: 28.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Seafood-Paella.jpg",
         category: "mains",
         branches: ["beachside"],
         isNew: true,
@@ -461,7 +469,7 @@ const dishDetails: DishDetails[] = [
         description:
             "Crispy fried chicken breast coated in Nashville hot sauce, served on a brioche bun with pickles and slaw",
         price: 16.99,
-        image: "/placeholder.svg?height=400&width=400",
+        image: "/images/Nashville-Hot-Chicken-Sandwich.jpg",
         category: "mains",
         branches: ["downtown", "uptown"],
         isSpicy: true,

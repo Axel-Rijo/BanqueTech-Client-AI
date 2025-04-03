@@ -57,3 +57,10 @@ export function getAllBranches(): BranchInfo[] {
     ]
 }
 
+export function getBranchById(id: string): BranchInfo | undefined {
+    return getAllBranches().find((branch) => branch.id === id)
+}
+
+export function getDefaultBranch(): BranchInfo {
+    return getAllBranches()[0]
+}

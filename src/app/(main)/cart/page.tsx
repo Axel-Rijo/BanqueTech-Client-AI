@@ -13,7 +13,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useMenuStore } from "@/lib/store";
 import { getDishDetails } from "@/lib/dish-data";
-import { getAllBranches, type Branch } from "@/lib/menu-data";
+import { getAllBranches, type Branch } from "@/lib/branch-data";
 
 export default function CartPage() {
   const {

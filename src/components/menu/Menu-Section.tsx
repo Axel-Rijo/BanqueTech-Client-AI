@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
+import { dishDetails } from "@/lib/dish-data";
 
 export default function MenuSection() {
   return (
@@ -136,102 +137,17 @@ function MenuCard({ item }: { item: MenuItem }) {
 }
 
 // Sample menu data
-const starters = [
-  {
-    name: "Truffle Arancini",
-    description:
-      "Crispy risotto balls with wild mushrooms, truffle oil, and parmesan cheese",
-    price: "$14",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian"],
-  },
-  {
-    name: "Seared Scallops",
-    description:
-      "Pan-seared scallops with cauliflower purée, pancetta, and herb oil",
-    price: "$18",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    name: "Burrata Salad",
-    description:
-      "Creamy burrata with heirloom tomatoes, basil, and aged balsamic",
-    price: "$16",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian", "Gluten-Free"],
-  },
-];
 
-const mains = [
-  {
-    name: "Filet Mignon",
-    description:
-      "8oz grass-fed beef with truffle mashed potatoes and seasonal vegetables",
-    price: "$42",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Gluten-Free"],
-  },
-  {
-    name: "Herb Crusted Salmon",
-    description:
-      "Wild-caught salmon with lemon risotto, asparagus, and dill cream sauce",
-    price: "$34",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    name: "Wild Mushroom Risotto",
-    description: "Arborio rice with wild mushrooms, white wine, and parmesan",
-    price: "$26",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian", "Gluten-Free"],
-  },
-];
+const starters = dishDetails
+  .filter((obj) => obj.category === "starters")
+  .slice(0, 3);
 
-const desserts = [
-  {
-    name: "Chocolate Fondant",
-    description:
-      "Warm chocolate cake with a molten center, served with vanilla ice cream",
-    price: "$12",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian"],
-  },
-  {
-    name: "Crème Brûlée",
-    description: "Classic vanilla custard with a caramelized sugar crust",
-    price: "$10",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian", "Gluten-Free"],
-  },
-  {
-    name: "Seasonal Fruit Tart",
-    description:
-      "Buttery pastry with vanilla custard and fresh seasonal fruits",
-    price: "$11",
-    image: "/placeholder.svg?height=200&width=400",
-    dietary: ["Vegetarian"],
-  },
-];
+const mains = dishDetails.filter((obj) => obj.category === "mains").slice(0, 3);
 
-const drinks = [
-  {
-    name: "Signature Martini",
-    description: "House-infused gin with dry vermouth and a twist of lemon",
-    price: "$16",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    name: "Barrel Aged Negroni",
-    description:
-      "Aged in oak barrels for 30 days with premium gin, Campari, and vermouth",
-    price: "$18",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    name: "Savoria Wine Selection",
-    description:
-      "Ask your server about our curated wine list featuring local and international selections",
-    price: "From $12",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-];
+const desserts = dishDetails
+  .filter((obj) => obj.category === "desserts")
+  .slice(0, 3);
+
+const drinks = dishDetails
+  .filter((obj) => obj.category === "drinks")
+  .slice(0, 3);

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ShoppingBag, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMenuStore } from "@/lib/store";
-import { getAllBranches } from "@/lib/menu-data";
+import { getAllBranches } from "@/lib/branch-data";
 
 export function CartFooter() {
   const {

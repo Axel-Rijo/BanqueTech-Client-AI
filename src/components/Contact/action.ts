@@ -13,6 +13,7 @@ const contactFormSchema = z.object({
     organization: z.string().optional(),
     deadline: z.string().optional(),
     newsletter: z.literal("on").optional(),
+    branchId: z.string(),
 })
 
 export async function submitContactForm(formData: FormData) {
@@ -46,3 +47,4 @@ export async function submitContactForm(formData: FormData) {
         }
     }
 }
+

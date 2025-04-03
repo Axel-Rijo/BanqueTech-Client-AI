@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import type { Branch } from "./menu-data"
 import { getDishDetails } from "./dish-data"
-import { getBranchMenu } from "./menu-data"
+import { getBranchMenu } from "./dish-data"
 
 // Define the cart item type
 export interface CartItem {
