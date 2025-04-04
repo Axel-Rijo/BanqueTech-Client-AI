@@ -351,7 +351,7 @@ export function DishDetailPage({ dish }: DishDetailPageProps) {
             </div>
 
             <Button
-              className="w-full bg-black hover:bg-black/80 text-white"
+              className="w-full bg-primary hover:bg-primary/80 text-white"
               size="lg"
             >
               Add to Order • ${calculateTotal()}

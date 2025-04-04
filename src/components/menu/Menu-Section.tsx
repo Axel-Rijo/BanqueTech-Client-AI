@@ -22,28 +22,28 @@ export default function MenuSection() {
 
         <Tabs defaultValue="starters" className="mt-12">
           <div className="flex justify-center mb-8">
-            <TabsList className="bg-black border border-[#f59e0b]">
+            <TabsList className="bg-black border border-primary">
               <TabsTrigger
                 value="starters"
-                className="text-white data-[state=active]:bg-[#f59e0b] data-[state=active]:text-black"
+                className="text-white data-[state=active]:bg-primary data-[state=active]:text-black"
               >
                 Starters
               </TabsTrigger>
               <TabsTrigger
                 value="mains"
-                className="text-white data-[state=active]:bg-[#f59e0b] data-[state=active]:text-black"
+                className="text-white data-[state=active]:bg-primary data-[state=active]:text-black"
               >
                 Main Courses
               </TabsTrigger>
               <TabsTrigger
                 value="desserts"
-                className="text-white data-[state=active]:bg-[#f59e0b] data-[state=active]:text-black"
+                className="text-white data-[state=active]:bg-primary data-[state=active]:text-black"
               >
                 Desserts
               </TabsTrigger>
               <TabsTrigger
                 value="drinks"
-                className="text-white data-[state=active]:bg-[#f59e0b] data-[state=active]:text-black"
+                className="text-white data-[state=active]:bg-primary data-[state=active]:text-black"
               >
                 Drinks
               </TabsTrigger>
@@ -85,7 +85,7 @@ export default function MenuSection() {
 
         <div className="flex justify-center mt-12">
           <Link href={"/menu"}>
-            <Button className="bg-[#f59e0b] text-black hover:bg-[#f59e0b]/90">
+            <Button className="bg-primary text-black hover:bg-primary/90">
               View Full Menu
             </Button>
           </Link>
@@ -105,7 +105,7 @@ interface MenuItem {
 
 function MenuCard({ item }: { item: MenuItem }) {
   return (
-    <Card className="overflow-hidden border border-[#f59e0b]/20 bg-black">
+    <Card className="overflow-hidden border border-primary/20 bg-black">
       <div className="aspect-video w-full overflow-hidden">
         <img
           src={item.image || "/placeholder.svg"}
@@ -116,7 +116,7 @@ function MenuCard({ item }: { item: MenuItem }) {
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-bold text-white">{item.name}</h3>
-          <span className="font-bold text-[#f59e0b]">{item.price}</span>
+          <span className="font-bold text-primary">{item.price}</span>
         </div>
         <p className="text-sm text-gray-300 mb-3">{item.description}</p>
         {item.dietary && (
@@ -124,7 +124,7 @@ function MenuCard({ item }: { item: MenuItem }) {
             {item.dietary.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center rounded-full border border-[#f59e0b]/50 px-2.5 py-0.5 text-xs font-semibold text-[#f59e0b]"
+                className="inline-flex items-center rounded-full border border-primary/50 px-2.5 py-0.5 text-xs font-semibold text-primary"
               >
                 {tag}
               </span>

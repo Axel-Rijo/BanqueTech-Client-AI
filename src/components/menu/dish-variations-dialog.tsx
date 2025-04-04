@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import type React from "react";
+import type React from "react"
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 import {
   Dialog,
   DialogContent,
@@ -10,73 +10,62 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Minus, Plus, Trash2, Edit } from "lucide-react";
-import { useMenuStore, type CartItem } from "@/lib/store";
-import { getDishDetails } from "@/lib/dish-data";
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Minus, Plus, Trash2, Edit } from "lucide-react"
+import { useMenuStore, type CartItem } from "@/lib/store"
+import { getDishDetails } from "@/lib/dish-data"
+import { useState } from "react"
 
 interface DishVariationsDialogProps {
-  dishId: string;
-  children: React.ReactNode;
+  dishId: string
+  children: React.ReactNode
 }
 
-export function DishVariationsDialog({
-  dishId,
-  children,
-}: DishVariationsDialogProps) {
-  const {
-    cart,
-    removeFromCart,
-    updateCartItemQuantity,
-    setEditingCartItemIndex,
-  } = useMenuStore();
-  const router = useRouter();
+export function DishVariationsDialog({ dishId, children }: DishVariationsDialogProps) {
+  const { cart, removeFromCart, updateCartItemQuantity, setEditingCartItemIndex } = useMenuStore()
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
 
   // Get all variations of this dish in the cart
-  const dishVariations = cart.filter((item) => item.dishId === dishId);
+  const dishVariations = cart.filter((item) => item.dishId === dishId)
 
   // Get the dish details
-  const dishDetails = getDishDetails(dishId);
+  const dishDetails = getDishDetails(dishId)
 
   if (!dishDetails || dishVariations.length === 0) {
-    return children;
+    return children
   }
 
   // Function to get the name of an option based on its ID
-  const getOptionName = (
-    optionType: "cooking" | "side",
-    optionId: string | undefined
-  ) => {
-    if (!optionId) return "N/A";
+  const getOptionName = (optionType: "cooking" | "side", optionId: string | undefined) => {
+    if (!optionId) return "N/A"
 
     if (optionType === "cooking" && dishDetails.cookingOptions) {
-      const option = dishDetails.cookingOptions.find(
-        (opt) => opt.id === optionId
-      );
-      return option ? option.name : "N/A";
+      const option = dishDetails.cookingOptions.find((opt) => opt.id === optionId)
+      return option ? option.name : "N/A"
     }
 
     if (optionType === "side" && dishDetails.sideOptions) {
-      const option = dishDetails.sideOptions.find((opt) => opt.id === optionId);
-      return option ? option.name : "N/A";
+      const option = dishDetails.sideOptions.find((opt) => opt.id === optionId)
+      return option ? option.name : "N/A"
     }
 
-    return "N/A";
-  };
+    return "N/A"
+  }
 
   // Function to get the add-on names
   const getAddOnNames = (addOnIds: string[]) => {
-    if (!dishDetails.addOns || addOnIds.length === 0) return "None";
+    if (!dishDetails.addOns || addOnIds.length === 0) return "None"
 
     return addOnIds
       .map((id) => {
-        const addOn = dishDetails.addOns?.find((a) => a.id === id);
-        return addOn ? addOn.name : "";
+        const addOn = dishDetails.addOns?.find((a) => a.id === id)
+        return addOn ? addOn.name : ""
       })
       .filter(Boolean)
-      .join(", ");
-  };
+      .join(", ")
+  }
 
   // Function to get cart item index
   const getCartItemIndex = (item: CartItem) => {
@@ -85,74 +74,81 @@ export function DishVariationsDialog({
         cartItem.dishId === item.dishId &&
         cartItem.cookingPreference === item.cookingPreference &&
         cartItem.sideDish === item.sideDish &&
-        JSON.stringify(cartItem.addOns.sort()) ===
-          JSON.stringify(item.addOns.sort()) &&
-        cartItem.specialInstructions === item.specialInstructions
-    );
-  };
+        JSON.stringify(cartItem.addOns.sort()) === JSON.stringify(item.addOns.sort()) &&
+        cartItem.specialInstructions === item.specialInstructions,
+    )
+  }
 
   // Function to handle editing a dish
-  const handleEditDish = (cartItemIndex: number) => {
-    // Set the editing cart item index in the store
-    setEditingCartItemIndex(cartItemIndex);
+  const handleEditDish = (cartItemIndex: number, e: React.MouseEvent) => {
+    // Prevent the dialog from closing if we're navigating away
+    e.preventDefault()
+    e.stopPropagation()
 
-    // Navigate to the dish details page
-    router.push(`/menu/${dishId}`);
-  };
+    // Close the dialog first
+    setIsOpen(false)
+
+    // Allow time for dialog to close before navigating
+    setTimeout(() => {
+      // Set the editing cart item index in the store
+      setEditingCartItemIndex(cartItemIndex)
+      // Navigate to the dish details page
+      router.push(`/menu/${dishId}`)
+    }, 100)
+  }
+
+  // Handle trigger click to prevent propagation to parent elements
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsOpen(true)
+  }
+
+  // Handle dialog close
+  const handleDialogClose = () => {
+    setIsOpen(false)
+  }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={handleDialogClose}>
+      <DialogTrigger asChild onClick={handleTriggerClick}>
+        {children}
+      </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>{dishDetails.name} Variations</DialogTitle>
           <DialogDescription>
-            You have {dishVariations.length} different variation(s) of this dish
-            in your cart
+            You have {dishVariations.length} different variation(s) of this dish in your cart
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 mt-4 max-h-[60vh] overflow-y-auto pr-2">
           {dishVariations.map((variation, index) => {
-            const cartItemIndex = getCartItemIndex(variation);
+            const cartItemIndex = getCartItemIndex(variation)
 
             return (
               <div key={index} className="border rounded-lg p-4 space-y-3">
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-medium text-lg">{dishDetails.name}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      ${variation.price.toFixed(2)} each
-                    </p>
+                    <p className="text-sm text-muted-foreground">${variation.price.toFixed(2)} each</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button
                       variant="outline"
                       size="icon"
                       className="h-7 w-7 rounded-full"
-                      onClick={() =>
-                        updateCartItemQuantity(
-                          cartItemIndex,
-                          variation.quantity - 1
-                        )
-                      }
+                      onClick={() => updateCartItemQuantity(cartItemIndex, variation.quantity - 1)}
                       disabled={variation.quantity <= 1}
                     >
                       <Minus className="h-3 w-3" />
                     </Button>
-                    <span className="w-5 text-center">
-                      {variation.quantity}
-                    </span>
+                    <span className="w-5 text-center">{variation.quantity}</span>
                     <Button
                       variant="outline"
                       size="icon"
                       className="h-7 w-7 rounded-full"
-                      onClick={() =>
-                        updateCartItemQuantity(
-                          cartItemIndex,
-                          variation.quantity + 1
-                        )
-                      }
+                      onClick={() => updateCartItemQuantity(cartItemIndex, variation.quantity + 1)}
                     >
                       <Plus className="h-3 w-3" />
                     </Button>
@@ -172,9 +168,7 @@ export function DishVariationsDialog({
                   {variation.cookingPreference && (
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Cooking:</span>
-                      <span>
-                        {getOptionName("cooking", variation.cookingPreference)}
-                      </span>
+                      <span>{getOptionName("cooking", variation.cookingPreference)}</span>
                     </div>
                   )}
 
@@ -198,32 +192,26 @@ export function DishVariationsDialog({
                   {/* Special Instructions */}
                   {variation.specialInstructions && (
                     <div>
-                      <span className="text-muted-foreground">
-                        Special Instructions:
-                      </span>
-                      <p className="mt-1 bg-muted/50 p-2 rounded text-xs italic">
-                        "{variation.specialInstructions}"
-                      </p>
+                      <span className="text-muted-foreground">Special Instructions:</span>
+                      <p className="mt-1 bg-muted/50 p-2 rounded text-xs italic">"{variation.specialInstructions}"</p>
                     </div>
                   )}
                 </div>
 
                 <div className="flex justify-between items-center pt-2">
-                  <span className="font-medium">
-                    Total: ${variation.totalPrice.toFixed(2)}
-                  </span>
+                  <span className="font-medium">Total: ${variation.totalPrice.toFixed(2)}</span>
                   <Button
                     variant="outline"
                     size="sm"
                     className="flex items-center gap-1"
-                    onClick={() => handleEditDish(cartItemIndex)}
+                    onClick={(e) => handleEditDish(cartItemIndex, e)}
                   >
                     <Edit className="h-3 w-3" />
                     <span>Edit</span>
                   </Button>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
 
@@ -231,21 +219,26 @@ export function DishVariationsDialog({
           <div>
             <div className="text-sm text-muted-foreground">Subtotal</div>
             <div className="font-medium">
-              $
-              {dishVariations
-                .reduce((sum, item) => sum + item.totalPrice, 0)
-                .toFixed(2)}
+              ${dishVariations.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)}
             </div>
           </div>
           <Button
             variant="default"
-            className="bg-black hover:bg-black/80 text-white"
-            onClick={() => window.open("/cart", "_self")}
+            className="bg-primary hover:bg-primary/80 text-white"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsOpen(false)
+              setTimeout(() => {
+                router.push("/cart")
+              }, 100)
+            }}
           >
             View Full Cart
           </Button>
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
+
