@@ -20,7 +20,7 @@ function SubmitButton() {
   return (
     <Button
       type="submit"
-      className="w-full bg-amber-500 hover:bg-amber-600 text-white transition-all duration-300"
+      className="w-full bg-amber-500 hover:bg-amber-600 text-white transition-all duration-300 cursor-pointer"
       disabled={pending}
     >
       {pending ? "Sending..." : "Send Message"}

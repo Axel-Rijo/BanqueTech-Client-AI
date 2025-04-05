@@ -160,7 +160,7 @@ export function Footer() {
               />
               <Button
                 type="submit"
-                className="w-full bg-amber-500 hover:bg-amber-600 text-white border-none"
+                className="w-full bg-amber-500 hover:bg-amber-600 text-white border-none cursor-pointer"
               >
                 Subscribe
               </Button>

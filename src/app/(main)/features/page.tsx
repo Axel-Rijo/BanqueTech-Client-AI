@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import FeaturesGrid from "./features-grid";
-import { getAllFeatures } from "@/lib/features";
+import { getAllFeatures } from "@/lib/features-data";
 
 export const metadata: Metadata = {
   title: "All Features | Savoria Restaurant",

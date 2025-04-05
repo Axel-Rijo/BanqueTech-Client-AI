@@ -90,7 +90,7 @@ export default function RestaurantHeader() {
             {/* Desktop: Call to Action & User Account */}
             <div className="hidden md:flex items-center space-x-4">
               <Link href={"/reservation"}>
-                <Button className="bg-amber-500 hover:bg-amber-600 text-white border-none">
+                <Button className="bg-amber-500 hover:bg-amber-600 text-white border-none cursor-pointer">
                   Make a Reservation
                 </Button>
               </Link>

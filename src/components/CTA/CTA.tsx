@@ -22,7 +22,7 @@ export default function RestaurantCTA() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full justify-center sm:justify-start">
               <Link href="/reservations" className="w-full sm:w-auto">
-                <Button className="bg-amber-500 hover:bg-amber-600 text-black w-full py-6 text-base">
+                <Button className="bg-amber-500 hover:bg-amber-600 text-black w-full py-6 text-base cursor-pointer">
                   <CalendarDays className="mr-2 h-5 w-5" />
                   Reserve a Table
                 </Button>
@@ -30,7 +30,7 @@ export default function RestaurantCTA() {
               <Link href="/menu" className="w-full sm:w-auto">
                 <Button
                   variant="outline"
-                  className="border-amber-500 text-amber-500 hover:bg-black hover:text-amber-400 w-full py-6 text-base"
+                  className="border-amber-500 text-amber-500 hover:bg-black hover:text-amber-400 w-full py-6 text-base cursor-pointer"
                 >
                   <UtensilsCrossed className="mr-2 h-5 w-5" />
                   View Our Menu
@@ -56,7 +56,7 @@ export default function RestaurantCTA() {
                   />
                   <Button
                     type="submit"
-                    className="bg-amber-500 hover:bg-amber-600 text-black"
+                    className="bg-amber-500 hover:bg-amber-600 text-black cursor-pointer"
                   >
                     <ArrowRight className="h-4 w-4" />
                   </Button>

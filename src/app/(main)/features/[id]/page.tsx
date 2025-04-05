@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getFeatureById, getRelatedFeatures } from "@/lib/features";
+import { getFeatureById, getRelatedFeatures } from "@/lib/features-data";
 import RelatedFeatures from "./related-features";
 
 export async function generateMetadata({

@@ -7,48 +7,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { getSummaryFeatures } from "@/lib/features-data";
 
 // Mock data for featured items
-const featuredItems = [
-  {
-    id: 1,
-    type: "promotion",
-    title: "Happy Hour Special",
-    description: "50% off cocktails and appetizers, Mon-Fri, 4-6pm.",
-    date: "Ongoing",
-    image: "/images/happy-hour.jpg",
-    badge: "Limited Time",
-  },
-  {
-    id: 2,
-    type: "event",
-    title: "Wine Tasting Evening",
-    description: "Premium Italian wines paired with chef-selected appetizers.",
-    date: "June 15, 2025",
-    time: "7:00 PM",
-    image: "/images/wine-tasting.webp",
-    badge: "Reservation Required",
-  },
-  {
-    id: 3,
-    type: "promotion",
-    title: "Chef's Tasting Menu",
-    description: "5-course menu with the finest local ingredients.",
-    date: "Weekends Only",
-    image: "/images/chef-experience.jpg",
-    badge: "New",
-  },
-  {
-    id: 4,
-    type: "event",
-    title: "Live Jazz Night",
-    description: "Enjoy our resident jazz quartet with special evening menu.",
-    date: "Every Thursday",
-    time: "8:00 PM",
-    image: "/images/jazz.jpg",
-    badge: "Popular",
-  },
-];
+const featuredItems = getSummaryFeatures();
 
 export default function FeaturedSection() {
   const [activeTab, setActiveTab] = useState("all");
@@ -180,7 +142,7 @@ export default function FeaturedSection() {
         <div className="flex justify-center mt-4">
           <Button
             size="sm"
-            className="bg-amber-500 hover:bg-amber-600 text-black group transition-all duration-300 text-xs h-8"
+            className="bg-amber-500 hover:bg-amber-600 text-black group transition-all duration-300 text-xs h-8 cursor-pointer"
           >
             <Link href={"/features"}>
               <span>View All</span>

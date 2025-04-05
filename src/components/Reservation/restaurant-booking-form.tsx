@@ -765,7 +765,7 @@ export default function RestaurantBookingForm({
 
         <Button
           type="submit"
-          className="w-full h-11 md:h-12 mt-6 text-base bg-amber-500 hover:bg-amber-600 text-white"
+          className="w-full h-11 md:h-12 mt-6 text-base bg-amber-500 hover:bg-amber-600 text-white cursor-pointer"
           disabled={isSubmitting}
         >
           {isSubmitting
